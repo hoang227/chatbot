@@ -1,0 +1,97 @@
+{% extends "layout.html" %} {% block content %}
+
+<div class="mx-40">
+	{% if history %}
+	<div class="flex flex-col justify-center">
+		{% for message in history %}
+		<div class="flex items-start gap-2.5 mb-6">
+			{% if message.sender == "chatbot" %}
+			<img
+				class="size-8 rounded-full"
+				src="/static/images/assistant.svg"
+				alt="Assistant image" />
+			{% else %}
+			<img
+				class="size-8 rounded-full invert"
+				src="/static/images/user.svg"
+				alt="User image" />
+			{% endif %}
+			<div
+				<div class="flex flex-col w-full leading-1.5 p-4 border-gray-200 rounded-e-xl rounded-es-xl
+				{% if message.sender == "chatbot" %}
+				bg-gray-100
+				{% else %}
+				bg-emerald-500
+				{% endif %}
+				">
+				<div class="flex items-center justify-between">
+					<div class="flex items-center space-x-2 rtl:space-x-reverse">
+						{% if message.sender == "chatbot" %}
+						<span class="text-sm font-semibold text-gray-900">ChatBot</span>
+						{% else %}
+						<span class="text-sm font-semibold text-white">User</span>
+						{% endif %}
+						<span class="text-sm font-normal {% if message.sender == "chatbot" %}
+						text-gray-500
+						{% else %}
+						text-white
+						{% endif %}
+						"
+							>{{ message.timestamp[1] }}</span
+						>
+					</div>
+					<span class="self-end text-sm font-normal {% if message.sender == "chatbot" %}
+					text-gray-500
+					{% else %}
+					text-white
+					{% endif %}"
+						>{{ message.timestamp[0] }}</span
+					>
+				</div>
+				<p class="text-sm font-normal py-2.5 {% if message.sender == "chatbot" %}
+				text-gray-900
+				{% else %}
+				text-white
+				{% endif %}">
+					{{ message.message }}
+				</p>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	{% else %}
+	<div class="text-gray-500">Chat Empty</div>
+	{% endif %}
+</div>
+
+<div class="fixed bottom-0 left-0 w-full px-40 z-50 bg-gray-900 py-6">
+	<form action="" method="post" novalidate>
+		<div class="flex w-full items-center">
+			<div class="flex w-full flex-col gap-1.5 rounded-full bg-gray-800">
+				<div class="flex items-end gap-1.5">
+					<div class="flex min-w-0 flex-1 flex-col">
+						<dl>
+							<dd>
+								{{ form.query_input(class="text-sm w-[95%] h-8 bg-gray ml-4
+								resize-none border-0 bg-transparent focus:ring-0 px-0
+								focus-visible:ring-0", style="overflow-y: hidden",
+								placeholder="Ask me something...") }}
+							</dd>
+						</dl>
+					</div>
+					<button
+						class="mb-1 mr-1 flex h-8 w-8 items-center justify-center rounded-full bg-white text-black hover:bg-gray-200"
+						type="submit">
+						<img
+							src="/static/images/arrow_up.svg"
+							class="h-6"
+							alt="Arrow Logo" />
+						{{ form.submit() }}
+					</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+{% endblock %}

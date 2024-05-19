@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ChatBot</title>
+		<link
+			rel="stylesheet"
+			href="{{url_for('static',filename='dist/css/output.css')}}" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+			rel="stylesheet" />
+	</head>
+	<body>
+		<nav class="fixed top-0 left-0 w-full px-40 z-50 bg-gray-900 py-2">
+			<div class="flex flex-wrap justify-between items-center p-4">
+				<div class="flex items-center space-x-3">
+					<img
+						class="size-12 rounded-full"
+						src="/static/images/assistant.svg"
+						alt="Assistant image" />
+					<span class="self-center text-4xl font-semibold tracking-tighter"
+						>ChatBot</span
+					>
+				</div>
+				<div class="flex items-center space-x-6">
+					{% if user %}
+						<div class="text-xs text-gray-500">
+							logged in as <strong>{{ user }}</strong>
+						</div>
+					{% endif %}
+					{% if user %}
+						<a
+							href="{{ url_for('logout') }}"
+							class="text-sm text-blue-600 dark:text-blue-500 hover:underline"
+							>Logout</a
+						>
+					{% else %}
+						{% if request.path == url_for('login') %}
+							<a
+								href="{{ url_for('register') }}"
+								class="text-sm text-blue-600 dark:text-blue-500 hover:underline"
+								>Register</a
+							>
+						{% elif request.path == url_for('register') %}
+							<a
+								href="{{ url_for('login') }}"
+								class="text-sm text-blue-600 dark:text-blue-500 hover:underline"
+								>Login</a
+							>
+						{% endif %}
+					{% endif %}
+				</div>
+				</div>
+			</div>
+		</nav>
+		<div class="mt-24">{% block content %}{% endblock %}</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	</body>
+</html>

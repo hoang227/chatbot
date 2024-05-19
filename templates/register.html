@@ -1,0 +1,28 @@
+{% extends "layout.html" %} {% block content %}
+
+<div class="flex flex-col items-center mx-40">
+	{% if error %}
+	<div
+		class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+		role="alert">
+		<span class="font-medium">{{ error }}!</span>
+	</div>
+	{% endif %}
+	<h2 class="text-2xl mb-4">Register</h2>
+	<form method="POST">
+		{{ form.hidden_tag() }}
+		<div class="mb-2">{{ form.username.label }}</div>
+		<div class="mb-4 text-black">{{ form.username(class="rounded-md") }}</div>
+		<div class="mb-2">{{ form.password.label }}</div>
+		<div class="mb-4 text-black">{{ form.password(class="rounded-md") }}</div>
+		<div class="mb-2">{{ form.confirm_password.label }}</div>
+		<div class="mb-4 text-black">
+			{{ form.confirm_password(class="rounded-md") }}
+		</div>
+		<div class="mt-8 bg-emerald-500 text-center mx-16 rounded-md py-1">
+			{{ form.submit(class="btn btn-primary") }}
+		</div>
+	</form>
+</div>
+
+{% endblock %}
